@@ -1,17 +1,12 @@
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import HelloSerializer
-
-
-class HelloAPI(APIView):
-    def get(self, request):
-        return Response(
-            {"message": "API funcionando com sucesso!"}, status=status.HTTP_200_OK
-        )
+from .models import Policial
+from .serializers import PolicialSerializer
 
 
 class LoginAPI(ObtainAuthToken):
@@ -25,3 +20,9 @@ class LoginAPI(ObtainAuthToken):
                 "username": token.user.username,
             }
         )
+
+
+class PolicialViewSet(viewsets.ModelViewSet):
+    queryset = Policial.objects.all()
+    serializer_class = PolicialSerializer
+    permission_classes = [IsAuthenticated]

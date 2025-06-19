@@ -2,14 +2,16 @@ import os
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(BASE_DIR / "src"))  # ✅ isso aponta para "apps"
+sys.path.insert(0, str(BASE_DIR / "src"))  # ✅ Aponta para "apps"
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "insecure-dev-key")
-DEBUG = False
 
-ALLOWED_HOSTS = []
-
+# Configurações de aplicativos
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -52,13 +54,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-DATABASES = {}  # será sobrescrito
-
+# Internacionalização
 LANGUAGE_CODE = "pt-br"
 TIME_ZONE = "America/Fortaleza"
 USE_I18N = True
 USE_TZ = True
 
+# Arquivos estáticos e mídia
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
