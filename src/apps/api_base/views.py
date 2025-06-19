@@ -26,3 +26,11 @@ class PolicialViewSet(viewsets.ModelViewSet):
     queryset = Policial.objects.all()
     serializer_class = PolicialSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Filtra para mostrar apenas policiais do usuário logado
+        return self.queryset.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        # Associa automaticamente o usuário logado ao policial
+        serializer.save(user=self.request.user)
