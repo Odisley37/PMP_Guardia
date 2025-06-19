@@ -1,0 +1,22 @@
+site_name: PMP_Guardia
+site_description: Documentação oficial do projeto PMP_Guardia
+repo_url: https://github.com/seu_usuario/seu_repositorio
+site_author: Odisley Silva
+theme:
+  name: material
+  language: pt-BR
+
+docs_dir: docs
+nav:
+  - Início: index.md
+  - Instalação: instalacao.md
+  - Uso: uso.md
+  - API: api.md
+  - Testes: testes.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+
