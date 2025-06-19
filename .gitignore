@@ -1,0 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Environments
+.env
+.env.* 
+.venv/
+venv/
+ENV/
+env/
+
+# VSCode config
+.vscode/
+
+# macOS
+.DS_Store
+
+# Pytest
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+static/
+
+# MyPy
+.mypy_cache/
+
+# pre-commit
+.pre-commit-config.yaml
+.pre-commit-hooks.yaml
+
+# docker
+*.pid
+*.db
+docker-compose.override.yml
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# JetBrains IDEs (e.g. PyCharm)
+.idea/
+
+# Others
+*.bak
+*.swp
+*.swo
