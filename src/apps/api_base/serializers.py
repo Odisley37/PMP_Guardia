@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Policial
+from .models import Agressor, Assistida, Guarnicao, GuarnicaoIntegrante, Policial
 
 
 class PolicialSerializer(serializers.ModelSerializer):
@@ -25,3 +25,37 @@ class PolicialSerializer(serializers.ModelSerializer):
                 "CPF deve conter apenas números e ter 11 dígitos."
             )
         return value
+
+
+class GuarnicaoIntegranteSerializer(serializers.ModelSerializer):
+    policial = PolicialSerializer(read_only=True)
+    policial_id = serializers.PrimaryKeyRelatedField(
+        queryset=Policial.objects.all(), source="policial", write_only=True
+    )
+
+    class Meta:
+        model = GuarnicaoIntegrante
+        fields = ["id", "guarnicao", "policial", "policial_id", "funcao"]
+
+
+class GuarnicaoSerializer(serializers.ModelSerializer):
+    integrantes = GuarnicaoIntegranteSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Guarnicao
+        fields = "__all__"
+
+
+class AgressorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Agressor
+        fields = "__all__"
+
+
+class AssistidaSerializer(serializers.ModelSerializer):
+    agressor = AgressorSerializer()
+    guarnicao = GuarnicaoSerializer()
+
+    class Meta:
+        model = Assistida
+        fields = "__all__"

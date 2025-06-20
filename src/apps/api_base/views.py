@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -5,8 +6,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Policial
-from .serializers import PolicialSerializer
+from .models import Agressor, Assistida, Guarnicao, GuarnicaoIntegrante, Policial
+from .serializers import (
+    AgressorSerializer,
+    AssistidaSerializer,
+    GuarnicaoIntegranteSerializer,
+    GuarnicaoSerializer,
+    PolicialSerializer,
+)
 
 
 class LoginAPI(ObtainAuthToken):
@@ -34,3 +41,27 @@ class PolicialViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Associa automaticamente o usuário logado ao policial
         serializer.save(user=self.request.user)
+
+
+class AssistidaViewSet(viewsets.ModelViewSet):
+    queryset = Assistida.objects.all()
+    serializer_class = AssistidaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class AgressorViewSet(viewsets.ModelViewSet):
+    queryset = Agressor.objects.all()
+    serializer_class = AgressorSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class GuarnicaoViewSet(viewsets.ModelViewSet):
+    queryset = Guarnicao.objects.all()
+    serializer_class = GuarnicaoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class GuarnicaoIntegranteViewSet(viewsets.ModelViewSet):
+    queryset = GuarnicaoIntegrante.objects.all()
+    serializer_class = GuarnicaoIntegranteSerializer
+    permission_classes = [IsAuthenticated]
